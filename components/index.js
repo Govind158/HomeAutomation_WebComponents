@@ -3,9 +3,10 @@ class ToggleOnOff extends HTMLElement{
     super();
 
     this.shadow = this.attachShadow({ mode: 'open' });
+    // Get attributes from the components
     const name = this.getAttribute('name');
     const icon = this.getAttribute('icon');
-
+    // Create Toggle button
     const button = document.createElement('button');
     button.classList.add("button-style");
     button.addEventListener('click', this.toggleSwitch.bind(this));
@@ -15,11 +16,13 @@ class ToggleOnOff extends HTMLElement{
     iconImage.classList.add("icon-style");
     button.appendChild(iconImage);
     this.shadow.appendChild(button);
-
+    // Check whether the button is already on
     const switchStatus = localStorage.getItem(`switchStatus_${name}`)
     if(switchStatus === 'true'){
       button.classList.add('on');
     }
+
+    // Add style to button
     const style = document.createElement('style');
     style.textContent =`
       button.button-style{
@@ -47,6 +50,7 @@ class ToggleOnOff extends HTMLElement{
     `;
     this.shadow.appendChild(style);
   }
+  // Record toggle status on click
     toggleSwitch(){
       const button = this.shadow.querySelector('button');
       const name = this.getAttribute('name');
